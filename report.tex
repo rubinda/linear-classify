@@ -34,6 +34,15 @@ SAAB ($C = 2$) and VAN ($C = 4$).
 
 \section{Solution}
 
+This report is accompanied by a .zip archive containing the source code. The solution is split into 4 files (all are written using Python3):
+\begin{itemize}
+	\item \textit{genmod.py} ... this file contains my implementation of the probabilistic generative model
+	\item \textit{irls.py} ... contains my implementation of the IRLS algorithm
+	\item \textit{vehicle.py} ... a helper file containing functions to load and modify the data
+	\item \textit{plotit.py} ... a helper file containing functions to help plot the metrics
+\end{itemize}
+The requirements for all files are \textit{numpy} and \textit{matplotlib} and of course the helper files should be extracted into the same directory.
+
 \subsection{Probabilistic generative model}
 
 The code containing my solution for this approach is included in the file \textit{genmod.py}. When run, it should output a \textit{.CSV} file (called \textit{genmod.csv}) containing the raw accuracies for both the training and test set and for the numbers of features selected. It also outputs an image with the accuracy graph for different numbers of features. The graph is presented on figure~\ref{genmod:acc}. The model achieves its highest accuracy of $0.985$ on the training set when all features are used, and maintains an accuracy of $0.979$ when using 13 or more features on the test set. I did not check any combinations of features other than taking the first N from the given order. Results may vary if the features are chosen in different orders.
@@ -47,7 +56,7 @@ The code containing my solution for this approach is included in the file \texti
 
 \subsection{IRLS}
 
-The code containing my solution for this approach is included in the file \textit{irls.py}. As in the first solution when running the code it produces a \textit{.CSV} file (called \textit{irls.csv}) and creates graphs for the misclassification rates and cross entropy errors during learning epochs for a different number of features used (specifically when 2, 9 or 18 features are used).
+The code containing my solution for this approach is included in the file \textit{irls.py}. As in the first solution when running the code it produces a \textit{JSON} file (called \textit{irls.json}) and creates graphs for the misclassification rates and cross entropy errors during learning epochs for a different number of features used (specifically when 2, 9 or 18 features are used).
 
 The initial weights are chosen as random numbers from $[-0.000001, 0.000001)$. For my solution I have introduced 3 stop conditions during the learning phase:
 \begin{enumerate}
