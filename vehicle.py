@@ -47,13 +47,42 @@ def extract_classes(data, classNo):
     return new_data
 
 
-def extract_features(data, classNo):
+def extract_features(data, classNo, features):
     """
     Extract the features for the given class
 
     :param data: vehicle data (dict with classes and features)
     :param classNo: the ID of the chosen class
+    :param features: number of features to return per vector
     :return: array of feature vectors from the specified class
     """
     indices = np.nonzero(data['C'] == classNo)[0]
-    return data['X'][indices]
+    return data['X'][indices][:, :features]
+
+
+def rename_class(a, toOne, toZero):
+    """
+    Rename the classes, so that they become 0 or 1
+    :param a: the array with classes
+    :param toOne: class ID which will be 1
+    :param toZero: class ID which will be 0
+    :return: array with classes translated
+    """
+    a = np.where(a == toOne, 1, a)
+    a = np.where(a == toZero, 0, a)
+    return a
+
+
+def normalize_features(data):
+    """
+    Normalizes the features to an interval [0,1]:
+    x = (x-x_min) / (x_max - x_min)
+    :param data: the feature vector
+    :return: normalized features
+    """
+    norm_data = np.copy(data)
+    f_max = np.amax(norm_data, axis=0)
+    f_min = np.amin(norm_data, axis=0)
+    norm_data = np.subtract(norm_data, f_min)
+    norm_data = np.divide(norm_data, np.subtract(f_max, f_min))
+    return norm_data

@@ -103,5 +103,12 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
+# Ignore the extracted data
 HW2/*
+
+#Ignore latex files
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
